@@ -37,9 +37,32 @@ module.exports = function(app, db, approot) {
         res.send('app.delete("/saved", function(req, res) {');
     });
 
-    app.post("/submit", function(req, res) {
-        console.log('app.post("/submit", function(req, res) {');
+    app.get("/saved", function(req, res) {
+        console.log('app.get("/saved", function(req, res) {');
+        Article.find({})
+            .exec(function(error, doc) {
+                if (error) {
+                    console.log(error);
+                    res.send(error);
+                } else {
+                    console.log("Successfully acquired Articles from db.");
+                    res.json(doc);
+                }
+            });
+    });
 
-        res.send('app.post("/submit", function(req, res) {');
+    app.post("/saved", function(req, res) {
+        console.log('app.post("/saved", function(req, res) {');
+        var article = new Article({ title: req.body.title, date: req.body.date, url: req.body.url });
+        article.save(function(error, doc) {
+            if (error) {
+                console.log(error);
+                console.log("Failed to save Article.");
+                res.send(error);
+            } else {
+                console.log("Successfully saved Article.");
+                res.json(doc);
+            }
+        });
     });
 };

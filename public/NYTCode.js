@@ -55,16 +55,62 @@ function runQuery(queryURL) {
                 $("#article-" + articleCounter).append(button);
             }
         });
-
 }
 
-$('#button-1').on('click', function() {
-    var title = $('#id_title-1').val().trim(); 
-    var date = $('#id_date-1').val().trim(); 
-    var url = $('#id_url-1').val().trim(); 
-    console.log('title:' + title);
-    console.log('date:' + date);
-    console.log('url:' + url);
+$(document).on('click', '#button-1', function() {
+    var newArticle = {
+        title: document.getElementById("title-1").innerText,
+        date: document.getElementById("date-1").innerText,
+        url: document.getElementById("url-1").innerText
+    };
+    $.post("/saved", newArticle)
+        .done(function(data) {
+            console.log(data);
+        });
+});
+$(document).on('click', '#button-2', function() {
+    var newArticle = {
+        title: document.getElementById("title-2").innerText,
+        date: document.getElementById("date-2").innerText,
+        url: document.getElementById("url-2").innerText
+    };
+    $.post("/saved", newArticle)
+        .done(function(data) {
+            console.log(data);
+        });
+});
+$(document).on('click', '#button-3', function() {
+    var newArticle = {
+        title: document.getElementById("title-3").innerText,
+        date: document.getElementById("date-3").innerText,
+        url: document.getElementById("url-3").innerText
+    };
+    $.post("/saved", newArticle)
+        .done(function(data) {
+            console.log(data);
+        });
+});
+$(document).on('click', '#button-4', function() {
+    var newArticle = {
+        title: document.getElementById("title-4").innerText,
+        date: document.getElementById("date-4").innerText,
+        url: document.getElementById("url-4").innerText
+    };
+    $.post("/saved", newArticle)
+        .done(function(data) {
+            console.log(data);
+        });
+});
+$(document).on('click', '#button-5', function() {
+    var newArticle = {
+        title: document.getElementById("title-5").innerText,
+        date: document.getElementById("date-5").innerText,
+        url: document.getElementById("url-5").innerText
+    };
+    $.post("/saved", newArticle)
+        .done(function(data) {
+            console.log(data);
+        });
 });
 
 $('#runSearch').on('click', function() {

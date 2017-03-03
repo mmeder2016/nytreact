@@ -13,8 +13,7 @@ var ArticleSchema = new Schema({
         trim: true,
     },
     date: {
-        type: Date,
-        default: Date.now
+        type: Date
     },
     url: {
         type: String,
