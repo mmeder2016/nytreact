@@ -5,19 +5,7 @@ module.exports = function(app, db, approot) {
 
     app.get("/", function(req, res) {
         console.log('app.get("/", function(req, res) {');
-
         res.sendFile(path.join(approot, '/public/index.html'));
-        // Story.find({})
-        //     .populate("comments")
-        //     // Now, execute the query
-        //     .exec(function(error, doc) {
-        //         // Send any errors to the browser
-        //         if (error) {
-        //             res.send(error);
-        //         } else {
-        //             res.render('index', { stories: doc });
-        //         }
-        //     });
     });
 
     app.delete("/saved", function(req, res) {
@@ -30,6 +18,7 @@ module.exports = function(app, db, approot) {
             } else {
                 console.log("Deleted Article:id:" + article._id);
                 res.json(article);
+                //res.redirect("/");
             }
         });
     });
@@ -59,7 +48,7 @@ module.exports = function(app, db, approot) {
             } else {
                 console.log("Successfully saved Article.");
                 res.json(doc);
-                // res.redirect("/saved");
+                //res.redirect("/");
             }
         });
     });

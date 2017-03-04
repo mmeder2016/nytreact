@@ -1,6 +1,41 @@
+$(window).load(function() {
+    getSaved();
+});
+
+function getSaved() {
+    $("#savedSection").empty();
+
+    // The AJAX function uses the URL and Gets the JSON data associated with it. 
+    // The data then gets stored in the variable called: "NYTData"
+    $.get("/saved")
+        .done(function(data) {
+            console.log('$.get("/saved")');
+            console.log(data);
+
+            for (var i = 0; i < data.length; i++) {
+
+                var saved = $("<div>");
+                saved.addClass('well');
+                saved.attr('id', 'article-' + data[i]._id);
+                $('#savedSection').append(saved);
+
+                // Write the url
+                var link = '<a href="' + data[i].url + '"><h4>' + data[i].title + '</h4></a>';
+                console.log('link:' + link);
+                $('#article-' + data[i]._id).append(link);
+
+                var button = $("<button>");
+                button.attr('id', data[i]._id);
+                button.addClass('delete-article');
+                button.attr('type', 'submit');
+                button.text('Delete Article');
+                $('#article-' + data[i]._id).append(button);
+            }
+
+        });
+}
+
 $(document).ready(function() {
-
-
     // MMeder NY Times Search - new auth key 02/03/2017
     var AUTHKEY = "ddf9d1e644824210a2d58a6dc64442cc";
     var NUMRESULTS = 5;
@@ -58,7 +93,6 @@ $(document).ready(function() {
                     $("#article-" + articleCounter).append(button);
                 }
             });
-        getSaved();
     }
 
     $(document).on('click', '#button-1', function() {
@@ -145,42 +179,7 @@ $(document).ready(function() {
     });
 
 
-
-    function getSaved() {
-        $("#savedSection").empty();
-
-        // The AJAX function uses the URL and Gets the JSON data associated with it. 
-        // The data then gets stored in the variable called: "NYTData"
-        $.get("/saved")
-            .done(function(data) {
-                console.log('$.get("/saved")');
-                console.log(data);
-
-                for (var i = 0; i < data.length; i++) {
-
-                    var saved = $("<div>");
-                    saved.addClass('well');
-                    saved.attr('id', 'article-' + data[i]._id);
-                    $('#savedSection').append(saved);
-
-                    // Write the url
-                    var link = '<a href="' + data[i].url + '"><h4>' + data[i].title + '</h4></a>';
-                    console.log('link:' + link);
-                    $('#article-' + data[i]._id).append(link);
-
-                    var button = $("<button>");
-                    button.attr('id', data[i]._id);
-                    button.addClass('delete-article');
-                    button.attr('type', 'submit');
-                    button.text('Delete Article');
-                    $('#article-' + data[i]._id).append(button);
-                }
-
-            });
-    }
-
     $(document).on('click', '.delete-article', function() {
-
         $.ajax({
                 method: "DELETE",
                 url: "/saved",
@@ -190,8 +189,7 @@ $(document).ready(function() {
             })
             .done(function(data) {
                 console.log(data);
+                getSaved();
             });
     });
-
-
 });
