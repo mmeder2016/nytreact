@@ -22,19 +22,16 @@ module.exports = function(app, db, approot) {
 
     app.delete("/saved", function(req, res) {
         console.log('app.delete("/saved", function(req, res) {');
-        console.log('req.params.id: ' + req.params.id);
 
-        // Remove the comment from the Comments collection
-        // Comment.findByIdAndRemove(req.params.id, function(error, comment) {
-        //     if (error) {
-        //         console.log(error);
-        //     } else {
-        //         console.log("Deleted Comment:id:" + comment._id);
-        //         // DID NOT REMOVE ID FROM STORIES OBJECT
-        //     }
-        // });
-        //res.redirect("/");
-        res.send('app.delete("/saved", function(req, res) {');
+        Article.findByIdAndRemove(req.body.id, function(error, article) {
+            if (error) {
+                console.log(error);
+                res.send(error);
+            } else {
+                console.log("Deleted Article:id:" + article._id);
+                res.json(article);
+            }
+        });
     });
 
     app.get("/saved", function(req, res) {
@@ -62,6 +59,7 @@ module.exports = function(app, db, approot) {
             } else {
                 console.log("Successfully saved Article.");
                 res.json(doc);
+                // res.redirect("/saved");
             }
         });
     });
