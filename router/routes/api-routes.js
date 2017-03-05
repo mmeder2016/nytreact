@@ -16,7 +16,7 @@ module.exports = function(app, db, approot) {
                 console.log(error);
                 res.send(error);
             } else {
-                console.log("Deleted Article:id:" + article._id);
+                console.log("Deleted Article:id:" + req.body.id);
                 res.json(article);
             }
         });

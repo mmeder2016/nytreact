@@ -1,7 +1,9 @@
 // will be used by REACT on the FRONT END
 var axios = require("axios");
 var helper = {
-    getSaved: function () {
+    getSavedArticles: function () {
+        console.log('helper getSaved: function () {');
+        console.log('axios.get("/saved");');
         // ajax request (promised based!!!)
         return axios.get("/saved");
     },
