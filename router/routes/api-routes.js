@@ -18,7 +18,6 @@ module.exports = function(app, db, approot) {
             } else {
                 console.log("Deleted Article:id:" + article._id);
                 res.json(article);
-                //res.redirect("/");
             }
         });
     });
@@ -48,7 +47,6 @@ module.exports = function(app, db, approot) {
             } else {
                 console.log("Successfully saved Article.");
                 res.json(doc);
-                //res.redirect("/");
             }
         });
     });
