@@ -24,10 +24,12 @@ app.use(function(req, res, next) {
     next();
 });
 
-//////////////////// DATABASE MODELS ////////////////////
+//////////////////// DATABASE MODELS MONGOOSE ////////////////////
 var mongoose = require('mongoose');
+// Mongoose mpromise deprecated - use bluebird promises
+var Promise = require("bluebird");
+mongoose.Promise = Promise;
 var Article = require("./models/Article.js");
-// Database configuration with mongoose
 mongoose.connect("mongodb://localhost/nytreact");
 var db = mongoose.connection;
 db.on("error", function(error) {
@@ -40,7 +42,7 @@ db.once("open", function() {
 //////////////////// SET PORT PLATFORM INDEPENDENT ////////////////////
 app.set('port', (process.env.PORT || 3000));
 
-//////////////////// SET ROUTES ////////////////////
+//////////////////// SET EXPRESS ROUTES ////////////////////
 var router = require('./router');
 router(app, db, __dirname);
 
