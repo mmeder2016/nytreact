@@ -1,4 +1,4 @@
-// This file contains 3 event handlers and 1 functions
+// This file contains 2 event handlers and 1 functions
 //
 // Event Handler 1.) The "Submit Search Button" for the NY Times search. This 
 //   function gathers the user data for the search from the Search Panel and
@@ -9,8 +9,6 @@
 //   all takes place on the front end.
 // Event Handler 2.) The "Save Article Button" Sends message to server to save
 //   the article in the database.
-// Event Handler 3.) The "Delete Saved Article Button" Sends message to server
-//   to delete the article in the database.
 
 $(document).ready(function() {
     // MMeder NY Times Search - new auth key 02/03/2017
@@ -94,17 +92,4 @@ $(document).ready(function() {
             });
     });
 
-    // Button handler for deleting an article in the Saved Articles Panel
-    // $(document).on('click', '.delete-article', function() {
-    //     $.ajax({
-    //             method: "DELETE",
-    //             url: "/saved",
-    //             data: {
-    //                 id: $(this).attr('data-id')
-    //             }
-    //         })
-    //         .done(function(data) {
-    //             console.log(data);
-    //         });
-    // });
 });
