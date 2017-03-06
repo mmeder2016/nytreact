@@ -30,7 +30,8 @@ var mongoose = require('mongoose');
 var Promise = require("bluebird");
 mongoose.Promise = Promise;
 var Article = require("./models/Article.js");
-mongoose.connect("mongodb://localhost/nytreact");
+//mongoose.connect("mongodb://localhost/nytreact");
+mongoose.connect("mongodb://heroku_g5286zlf:96qohdc0b9nurh2kktksepvh2@ds119210.mlab.com:19210/heroku_g5286zlf");
 var db = mongoose.connection;
 db.on("error", function(error) {
     console.log("Mongoose Error: ", error);
