@@ -95,16 +95,16 @@ $(document).ready(function() {
     });
 
     // Button handler for deleting an article in the Saved Articles Panel
-    $(document).on('click', '.delete-article', function() {
-        $.ajax({
-                method: "DELETE",
-                url: "/saved",
-                data: {
-                    id: $(this).attr('data-id')
-                }
-            })
-            .done(function(data) {
-                console.log(data);
-            });
-    });
+    // $(document).on('click', '.delete-article', function() {
+    //     $.ajax({
+    //             method: "DELETE",
+    //             url: "/saved",
+    //             data: {
+    //                 id: $(this).attr('data-id')
+    //             }
+    //         })
+    //         .done(function(data) {
+    //             console.log(data);
+    //         });
+    // });
 });
