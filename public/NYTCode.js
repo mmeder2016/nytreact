@@ -1,37 +1,14 @@
-$(window).load(function() {
-    getSaved();
-});
-
-// This function gets all the saved articles as JSON data and displays it
-// in the savedSection with a button to delete it if desired. 
-function getSaved() {
-    $("#savedSection").empty();
-
-    $.get("/saved")
-        .done(function(data) {
-            console.log('$.get("/saved")');
-            console.log(data);
-
-            for (var i = 0; i < data.length; i++) {
-
-                var saved = $("<div>");
-                saved.addClass('well');
-                saved.attr('id', 'article-' + data[i]._id);
-                $('#savedSection').append(saved);
-
-                // Write the url
-                var link = '<a href="' + data[i].url + '"><h4>' + data[i].title + '</h4></a>';
-                $('#article-' + data[i]._id).append(link);
-
-                var button = $("<button>");
-                button.attr('data-id', data[i]._id);
-                button.addClass('delete-article');
-                button.attr('type', 'submit');
-                button.text('Delete Article');
-                $('#article-' + data[i]._id).append(button);
-            }
-        });
-}
+// This file contains 2 event handlers and 1 functions
+//
+// Event Handler 1.) The "Submit Search Button" for the NY Times search. This 
+//   function gathers the user data for the search from the Search Panel and
+//   creates the URL to submit to the NY Times. It then calls the function 
+//   runQuery.
+// Function 1.) "runQuery"" Submits the query to the NY Times and then populates
+//   the Search Panel with the data. The search and the populating of data
+//   all takes place on the front end.
+// Event Handler 2.) The "Save Article Button" Sends message to server to save
+//   the article in the database.
 
 $(document).ready(function() {
     // MMeder NY Times Search - new auth key 02/03/2017
@@ -39,7 +16,7 @@ $(document).ready(function() {
     var NUMRESULTS = 5;
     var QUERYURLBASE = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + AUTHKEY + "&q=";
 
-        // Button handler for initiating a search with user inputs
+    // Button handler for initiating a search with user inputs
     $('#runSearch').on('click', function() {
         var searchTerm = $('#searchTerm').val().trim();
         var startYear = $('#startYear').val().trim();
@@ -51,7 +28,6 @@ $(document).ready(function() {
             queryURL += "&end_date=" + endYear + "0101";
         }
         runQuery(queryURL);
-
         // This line allows us to take advantage of the HTML "submit" property. 
         // This way we can hit enter on the keyboard and it registers the search 
         // (in addition to clicks).
@@ -102,7 +78,7 @@ $(document).ready(function() {
             });
     }
 
-    // Button handler for saving an article in the Results Section
+    // Button handler for saving an article in the Search Results Panel
     $(document).on('click', '#save-button', function() {
         var newArticle = {
             title: $(this).attr('data-title'),
@@ -113,22 +89,7 @@ $(document).ready(function() {
         $.post("/saved", newArticle)
             .done(function(data) {
                 console.log(data);
-                getSaved();
             });
     });
 
-    // Button handler for deleting an article in the Saved Section
-    $(document).on('click', '.delete-article', function() {
-        $.ajax({
-                method: "DELETE",
-                url: "/saved",
-                data: {
-                    id: $(this).attr('data-id')
-                }
-            })
-            .done(function(data) {
-                console.log(data);
-                getSaved();
-            });
-    });
 });

@@ -10,14 +10,16 @@ module.exports = function(app, db, approot) {
 
     app.delete("/saved", function(req, res) {
         console.log('app.delete("/saved", function(req, res) {');
+        console.log(req);
 
         Article.findByIdAndRemove(req.body.id, function(error, article) {
             if (error) {
                 console.log(error);
                 res.send(error);
             } else {
-                console.log("Deleted Article:id:" + article._id);
+                console.log("Deleted Article:id:" + req.body.id);
                 res.json(article);
+                //res.redirect("/saved");
             }
         });
     });
