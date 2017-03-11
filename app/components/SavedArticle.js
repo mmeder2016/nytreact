@@ -3,10 +3,9 @@ var React = require("react");
 var helper = require("./utils/helpers");
 
 var SavedArticle = React.createClass({
-
     handleClick: function (event) {
+        console.log('SavedArticle handleClick: function (event) {');
         helper.deleteArticle(this.props.id).then(function (response) {
-            console.log(response);
             // Call parent updateState Function
             this.props.updateStateProp();
         }.bind(this));
